@@ -11,6 +11,7 @@ namespace SeekingClarity.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FirebaseId { get; set; }
+        public string EmailAddress { get; set; }
 
     }
 }

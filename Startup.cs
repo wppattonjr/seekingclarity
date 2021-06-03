@@ -47,6 +47,8 @@ namespace SeekingClarity
 
             services.AddSingleton(Configuration);
             services.AddTransient<GroupRepository>();
+            services.AddTransient<UserRepository>();
+
         }
     
 
