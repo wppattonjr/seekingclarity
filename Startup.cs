@@ -32,14 +32,14 @@ namespace SeekingClarity
                 .AddJwtBearer(options =>
                 {
                     options.IncludeErrorDetails = true;
-                    options.Authority = "https://securetoken.google.com/seekingclarity";
+                    options.Authority = "https://securetoken.google.com/seekingclarity-724af";
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateLifetime = true,
                         ValidateAudience = true,
                         ValidateIssuer = true,
-                        ValidAudience = "seekingclarity",
-                        ValidIssuer = "https://securetoken.google.com/seekingclarity"
+                        ValidAudience = "seekingclarity-724af",
+                        ValidIssuer = "https://securetoken.google.com/seekingclarity-724af"
                     };
                 });
 

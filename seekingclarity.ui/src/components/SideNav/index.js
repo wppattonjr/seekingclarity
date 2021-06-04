@@ -7,9 +7,10 @@ export default function VerticalNavbar() {
       <div className='my-nav'>
         <div className='nav-items'>
           <div className='nav-brand'>
-            <Link to='/'>Dashboard</Link>
+          <Link to='/'>Seeking Clarity</Link>
           </div>
           <ul className='nav-links'>
+          <li><Link to='/dashboard'><i className=""></i>Dashboard</Link></li>
             <li><Link to='/group-details'><i className=""></i>Group Details</Link></li>
             <li><Link to='/product-groups'><i className=""></i>Product Groups</Link></li>
          </ul>
