@@ -4,27 +4,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SeekingClarity.Models;
 using SeekingClarity.DataAccess;
+using SeekingClarity.Models;
 
 namespace SeekingClarity.Controllers
 {
-    [Route("api/Groups")]
+    [Route("api/Criteria")]
     [ApiController]
-    public class GroupsController : ControllerBase
+    public class CriteriaController : ControllerBase
     {
-        GroupRepository _repo;
-        public GroupsController(GroupRepository repo)
+        CriteriaRepository _repo;
+        public CriteriaController(CriteriaRepository repo)
         {
             _repo = repo;
         }
 
         [HttpGet]
-        public IActionResult GetAllGroups()
+        public IActionResult GetAllCriteria()
         {
-            var Groups = _repo.GetAll();
+            var criteria = _repo.GetAll();
 
-            return Ok(Groups);
+            return Ok(criteria);
         }
     }
 }
