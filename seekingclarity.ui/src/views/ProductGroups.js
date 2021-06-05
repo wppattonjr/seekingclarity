@@ -1,10 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
+import ProductGroupTable from '../components/ProductGroupsTable';
+import productGroupData from '../helpers/data/productGroupData';
 
-export default class ProductGroups extends Component {
+export default class ProductGroups extends React.Component {
+  state = {
+    productGroups: [],
+  }
+
+  componentDidMount() {
+    this.getProductGroups();
+  }
+
+  getProductGroups = () => {
+    productGroupData.getAllProductGroups().then((response) => {
+      this.setState({
+        names: response
+      });
+    });
+  }
+
   render() {
     return (
-       <div className='d-flex justify-content-center m5'>
-        <h1>Product Groups View</h1>
+      <div className="product-group-table">
+      <ProductGroupTable />
       </div>
     );
   }
