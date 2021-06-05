@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import GroupDetails from '../views/GroupDetails';
@@ -7,7 +8,6 @@ import SingleProduct from '../views/SingleProduct';
 import NotFound from '../views/NotFound';
 import LoginPage from '../components/Auth';
 
-// eslint-disable-next-line react/prop-types
 const PrivateRoute = ({ component: Component, user, ...rest }) => {
   const routeChecker = (check) => (user
     ? (<Component {...check} user={user}/>)
@@ -16,35 +16,37 @@ const PrivateRoute = ({ component: Component, user, ...rest }) => {
   return <Route {...rest} render={(props) => routeChecker(props)} />;
 };
 
-// eslint-disable-next-line react/prop-types
 export default function Routes({ user }) {
   return (
     <Switch>
       <Route
-      exact
-      path='/'
+      exact path='/'
       component={LoginPage}
       user={user}
       />
       <PrivateRoute
       exact path='/dashboard'
       component={Dashboard}
+      userId={user.userId}
       user={user}
       />
       <PrivateRoute
       exact path='/group-details'
       component={GroupDetails}
       user={user}
+      userId={user.userId}
       />
       <PrivateRoute
       exact path='/product-groups'
       component={ProductGroups}
-      user={user}
+       user={user}
+       userId={user.userId}
       />
-      <Route
+      <PrivateRoute
       exact path='/single-product'
       component={SingleProduct}
       user={user}
+      userId={user.userId}
       />
       <Route component={NotFound} />
     </Switch>
