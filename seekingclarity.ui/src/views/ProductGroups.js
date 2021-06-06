@@ -21,7 +21,7 @@ export default class ProductGroups extends React.Component {
 
   render() {
     return (
-      <div className="product-group-table">
+      <div className="product-groups-table">
       <ProductGroupTable />
       </div>
     );
