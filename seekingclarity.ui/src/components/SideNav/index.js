@@ -5,11 +5,10 @@ import firebase from 'firebase';
 import 'firebase-auth';
 
 class VerticalNavbar extends Component {
-  logMeOut = (e) => {
-    e.preventDefault();
-    this.props.history.push('/');
+  logoutClickEvent = () => {
     firebase.auth().signOut();
-  };
+    window.location.reload();
+  }
 
   render() {
     const { user } = this.props;
@@ -31,10 +30,10 @@ class VerticalNavbar extends Component {
           <div>{user?.displayName}</div>
           <ul className='nav-links'>
           <li><Link to='/dashboard'><i className=""></i>Dashboard</Link></li>
-            <li><Link to='/group-details'><i className=""></i>Group Details</Link></li>
-            <li><Link to='/product-groups'><i className=""></i>Product Groups</Link></li>
+          <li><Link to='/product-groups'><i className=""></i>Product Groups</Link></li>
+          <li><Link to='/user-profile'><i className=""></i>User Profile</Link></li>
          </ul>
-         <div className='nav-link btn btn-danger' onClick={(e) => this.logMeOut(e)}>Logout</div>
+         <div className='nav-link sign-out' onClick={(e) => this.logoutClickEvent(e)}>Sign Out</div>
          </>
         }
         </div>

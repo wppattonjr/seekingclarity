@@ -1,3 +1,38 @@
-.product-group-table {
-    padding-left: 18px
-}
+  .product-groups-table {
+    display: block;
+    height: 100%;
+    width: 90vw;
+    padding-left: 25ex;
+  }
+  
+  .product-groups-table-body {
+    display: block;
+    height: 70vh;
+    overflow: auto;
+    width: 100%;
+    padding-left: 25ex;
+  }
+  
+  .product-groups-table th {
+    width: 25vw;
+  }
+  
+  .product-groups-table-body td {
+    width: 25vw;
+  }
+  
+  .product-groups-fixed-header thead {
+    background-color: #6f6f6f;
+    color: #0c0c0c;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .product-groups-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+  
+  .product-groups-table-body tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+  
