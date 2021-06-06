@@ -1,12 +1,26 @@
 import React, { Component } from 'react';
 import 'firebase-auth';
 import firebase from 'firebase';
+import axios from 'axios';
+import { baseUrl } from '../../helpers/config.json';
 
 export default class Auth extends Component {
     loginClickEvent = (e) => {
       e.preventDefault();
       const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider);
+      firebase.auth().signInWithPopup(provider).then((create) => {
+        const user = create.additionalUserInfo.profile;
+        if (create.additionalUserInfo.isNewUser) {
+          const userInfo = {
+            firebaseId: create.user.uid,
+            firstname: user.given_name,
+            lastname: user.family_name,
+            emailaddress: user.email,
+          };
+
+          axios.post(`${baseUrl}/users`, userInfo).catch((error) => console.warn(error));
+        }
+      });
     }
 
     render() {

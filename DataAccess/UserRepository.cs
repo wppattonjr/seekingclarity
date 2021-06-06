@@ -39,6 +39,19 @@ namespace SeekingClarity.DataAccess
 
             return user;
         }
+
+        public void Add(User User)
+        {
+            using var db = new SqlConnection(ConnectionString);
+
+            var sql = @"INSERT INTO [dbo].[User] ([FirebaseId], [FirstName], [LastName], [EmailAddress])
+                            OUTPUT inserted.id
+                            VALUES(@FirebaseId, @FirstName, @LastName, @EmailAddress)";
+
+            var id = db.ExecuteScalar<int>(sql, User);
+
+            User.Id = id;
+        }
        
     }
 }
