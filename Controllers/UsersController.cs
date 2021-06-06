@@ -38,5 +38,14 @@ namespace SeekingClarity.Controllers
 
             return Ok(user);
         }
+
+        [HttpPost]
+        public IActionResult AddUser(User User)
+        {
+            _repo.Add(User);
+
+            return Created($"api/Users/{User.Id}", User);
+        }
+        
     }
 }
