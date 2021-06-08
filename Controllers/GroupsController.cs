@@ -26,5 +26,18 @@ namespace SeekingClarity.Controllers
 
             return Ok(Groups);
         }
+
+        [HttpGet("all/{userId}")]
+        public IActionResult GetAllUserProducts(string userId)
+        {
+            var products = _repo.GetAllUserProducts(userId);
+
+            if (products == null)
+            {
+                return NotFound("You have no products at this time.");
+            }
+
+            return Ok(products);
+        }
     }
 }

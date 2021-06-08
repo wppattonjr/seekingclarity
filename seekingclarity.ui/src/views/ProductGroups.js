@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import ProductGroupTable from '../components/ProductGroupsTable';
 import productGroupData from '../helpers/data/productGroupData';
 
 export default class ProductGroups extends React.Component {
   state = {
-    productGroups: [],
+    products: [],
   }
 
   componentDidMount() {
@@ -14,7 +15,7 @@ export default class ProductGroups extends React.Component {
   getProductGroups = () => {
     productGroupData.getAllProductGroups().then((response) => {
       this.setState({
-        names: response
+        products: response
       });
     });
   }
@@ -22,7 +23,7 @@ export default class ProductGroups extends React.Component {
   render() {
     return (
       <div className="product-groups-table">
-      <ProductGroupTable />
+      <ProductGroupTable userId={this.props.user.uid} />
       </div>
     );
   }

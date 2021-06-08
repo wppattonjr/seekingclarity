@@ -27,26 +27,26 @@ export default function Routes({ user }) {
       <PrivateRoute
       exact path='/dashboard'
       component={Dashboard}
-      userId={user.userId}
+      uid={user.uid}
       user={user}
       />
       <PrivateRoute
       exact path='/group-details'
       component={GroupDetails}
       user={user}
-      userId={user.userId}
+      uid={user.uid}
       />
       <PrivateRoute
       exact path='/product-groups'
       component={ProductGroups}
        user={user}
-       userId={user.userId}
+       uid={user.uid}
       />
       <PrivateRoute
       exact path='/single-product'
       component={SingleProduct}
       user={user}
-      userId={user.userId}
+      uid={user.uid}
       />
       <Route component={NotFound} />
     </Switch>

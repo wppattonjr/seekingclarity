@@ -9,4 +9,4 @@ const getUserByUid = (fbUid) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-export default getUserByUid;
+export default { getUserByUid };
