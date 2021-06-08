@@ -1,26 +1,28 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 import productGroupData from '../../helpers/data/productGroupData';
 
 export default class ProductGroupTable extends Component {
     state = {
-      productGroups: []
+      products: []
     }
 
     componentDidMount() {
-      this.getAllGroups();
+      this.getUserGroups();
     }
 
-    getAllGroups = () => {
-      productGroupData.getAllProductGroups().then((response) => this.setState({
-        productGroups: response,
+    getUserGroups = () => {
+      const { userId } = this.props;
+      productGroupData.getAllUserProducts(userId).then((response) => this.setState({
+        products: response,
       }));
     }
 
-    renderProductGroups = () => this.state.productGroups.map((productGroup) => <tr key={productGroup.id}>
-        <td>{productGroup.name}</td>
-        <td>{productGroup.category}</td>
-        <td>{productGroup.dateCreated}</td>
+    renderProductGroups = () => this.state.products.map((products) => <tr key={products.id}>
+        <td>{products.name}</td>
+        <td>{products.category}</td>
+        <td>{products.dateCreated}</td>
     </tr>)
 
     render() {

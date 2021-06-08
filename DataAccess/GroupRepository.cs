@@ -23,14 +23,28 @@ namespace SeekingClarity.DataAccess
             using var db = new SqlConnection(ConnectionString);
 
             var sql = @"select *
-                        from [Group]";             
+                        from [Group]";
 
             return db.Query<Group>(sql).ToList();
-
-           
-
-           
         }
+
+        public IEnumerable<Group> GetAllUserProducts(string userId)
+        {
+            var sql = @"select * from [Group] 
+	                      join [User]
+		                    on [Group].UserId = [User].Id
+                        WHERE [User].FirebaseId = @userId";
+
+
+            using var db = new SqlConnection(ConnectionString);
+
+            return db.Query<Group>(sql, new { userId }).ToList();
+        }
+
+
+
+      
+     
 
     }
 }
