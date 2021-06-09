@@ -11,6 +11,7 @@ fbConnection();
 class App extends React.Component {
   state = {
     user: '',
+    products: [],
   };
 
   componentDidMount() {

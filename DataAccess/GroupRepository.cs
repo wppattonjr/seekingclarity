@@ -41,7 +41,33 @@ namespace SeekingClarity.DataAccess
             return db.Query<Group>(sql, new { userId }).ToList();
         }
 
+        public void Add(Group group)
+        {
+            var sql = @"INSERT INTO [Group] ([UserId], [Name], [Category], [isActive], [Image])
+                        OUTPUT inserted.Id
+                        VALUES(@UserId, @Name, @Category, @isActive, @Image)";
 
+            using var db = new SqlConnection(ConnectionString);
+
+            var id = db.ExecuteScalar<int>(sql, group);
+
+            group.Id = id;
+        }
+
+        public void Update(Group group)
+        {
+            using var db = new SqlConnection(ConnectionString);
+
+            var sql = @"UPDATE [Group]
+                        SET [UserId] = @UserId,
+                            [Name] = @Name,
+                            [Category] = @Category,
+                            [IsActive] = @IsActive,
+                            [Image] = @Image
+                        WHERE Id = @id";
+
+            db.Execute(sql, group);
+        }
 
       
      
