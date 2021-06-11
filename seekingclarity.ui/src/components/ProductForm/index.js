@@ -29,7 +29,7 @@ export default class AddProductGroupForm extends React.Component {
       } else if (e.target.id === 'uid'
                  || e.target.id === 'userId') {
         this.setState({
-          [e.targe.id]: (e.target.value),
+          [e.target.id]: (e.target.value),
         });
       } else {
         this.setState({
@@ -43,24 +43,24 @@ export default class AddProductGroupForm extends React.Component {
 
       if (!this.props.products) {
         const addGroup = {
-          userid: this.props.products.userid,
-          name: this.props.products.name,
-          catgory: this.props.products.category,
+          userid: this.props.dbUser.id,
+          name: this.state.name,
+          category: this.state.category,
           isActive: this.state.isActive === 'true' && true,
           image: this.state.image
         };
-        productGroupData.createProductGroup(addGroup);
-
-        this.props.handleUpdate();
+        productGroupData.createProductGroup(addGroup).then(() => {
+          this.props.handleUpdate();
+        });
       } else {
         const updateGroup = {
-          userid: this.props.products.userid,
-          name: this.props.products.name,
-          catgory: this.props.products.category,
+          userid: this.props.dbUser.id,
+          name: this.state.name,
+          category: this.state.category,
           isActive: this.state.isActive === 'true' && true,
           image: this.state.image
         };
-        productGroupData.updateProductGroup(this.props.products.id, updateGroup);
+        productGroupData.updateProductGroup(this.props.userId, updateGroup);
       }
       this.props.toggle();
     }
@@ -71,19 +71,19 @@ export default class AddProductGroupForm extends React.Component {
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="name">
                     <Form.Label>Product Group Name</Form.Label>
-                    <Form.Control type="text" onChange={this.handleChange} value={this.props.name} required/>
+                    <Form.Control type="text" onChange={this.handleChange} value={this.state.name} required/>
                 </Form.Group>
-                <Form.Group controllId="category">
+                <Form.Group controlId="category">
                 <Form.Label>Category</Form.Label>
-                <Form.Control as="select" onChange={this.handleChange} value={this.props.category} required>
+                <Form.Control as="select" onChange={this.handleChange} value={this.state.category} required>
                     <option value="" defaultValue disabled hidden>Select a category</option>
-                    <option value="product">Product</option>
-                    <option value="service">Service</option>
+                    <option value="Product" >Product</option>
+                    <option value="Service" >Service</option>
                 </Form.Control>
             </Form.Group>
-            <Form.Group controllId="isActive">
+            <Form.Group controlId="isActive">
                 <Form.Label>Active Product Group</Form.Label>
-                <Form.Control as="select" onChange={this.handleChange} value={this.props.isActive} required>
+                <Form.Control as="select" onChange={this.handleChange} value={this.state.isActive} required>
                     <option value="" defaultValue disabled hidden>Select availability</option>
                     <option value="true">Yes</option>
                     <option value="false">No</option>

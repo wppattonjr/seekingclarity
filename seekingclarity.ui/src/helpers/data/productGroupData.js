@@ -12,7 +12,7 @@ const getAllUserProducts = (userId) => new Promise((resolve, reject) => axios.ge
   .then((response) => { resolve(response.data); })
   .catch((error) => reject(error)));
 
-const createProductGroup = (productGroup) => axios.post(`${productGroupUrl}`, productGroup);
+const createProductGroup = (userId) => axios.post(`${productGroupUrl}`, userId);
 
 const updateProductGroup = (productGroupId) => new Promise((_resolve, reject) => axios.put(`${productGroupUrl}/${productGroupId}`)
   .catch((error) => reject(error)));
