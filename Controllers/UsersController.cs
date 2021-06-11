@@ -26,10 +26,10 @@ namespace SeekingClarity.Controllers
             return Ok(_repo.GetAll());
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetById(string id)
+        [HttpGet("{firebaseid}")]
+        public IActionResult GetById(string firebaseid)
         {
-            var user = _repo.Get(id);
+            var user = _repo.Get(firebaseid);
 
             if (user == null)
             {

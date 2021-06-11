@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 import productGroupData from '../../helpers/data/productGroupData';
+import AddProductGroupForm from '../ProductForm';
+import AppModal from '../AppModal';
 
 export default class ProductGroupTable extends Component {
     state = {
@@ -23,6 +25,13 @@ export default class ProductGroupTable extends Component {
         <td>{products.name}</td>
         <td>{products.category}</td>
         <td>{products.dateCreated}</td>
+        <td><AppModal
+        title={'Update Product Group'}
+        id={products.id}
+        products={products}
+        >
+          <AddProductGroupForm products={products} />
+        </AppModal></td>
     </tr>)
 
     render() {

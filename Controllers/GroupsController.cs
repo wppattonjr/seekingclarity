@@ -39,5 +39,21 @@ namespace SeekingClarity.Controllers
 
             return Ok(products);
         }
+
+        [HttpPost]
+        public IActionResult AddProductGroup(Group group)
+        {
+            _repo.Add(group);
+
+            return Created($"api/Groups/{group.Id}", group);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateProductGroup(Group group)
+        {
+            _repo.Update(group);
+
+            return Ok(group);
+        }
     }
 }
