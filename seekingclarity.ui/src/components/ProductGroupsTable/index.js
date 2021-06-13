@@ -1,41 +1,53 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
-import productGroupData from '../../helpers/data/productGroupData';
 import AddProductGroupForm from '../ProductForm';
 import AppModal from '../AppModal';
+import productGroupData from '../../helpers/data/productGroupData';
 
 export default class ProductGroupTable extends Component {
-    state = {
-      products: []
-    }
+  state = {
+    groups: []
+  }
 
-    componentDidMount() {
-      this.getUserGroups();
-    }
+  componentDidMount() {
+    // this.setState({ groups: this.props.products });
+    this.getProductGroups();
+  }
 
-    getUserGroups = () => {
-      const { userId } = this.props;
-      productGroupData.getAllUserProducts(userId).then((response) => this.setState({
-        products: response,
-      }));
-    }
+  getProductGroups = () => {
+    productGroupData.getAllProductGroups().then((response) => {
+      this.setState({
+        groups: response
+      });
+    });
+  }
 
-    renderProductGroups = () => this.state.products.map((products) => <tr key={products.id}>
-        <td>{products.name}</td>
-        <td>{products.category}</td>
-        <td>{products.dateCreated}</td>
-        <td><AppModal
-        title={'Update Product Group'}
-        id={products.id}
-        products={products}
-        >
-          <AddProductGroupForm products={products} />
-        </AppModal></td>
-    </tr>)
+  handleSubmit = (e) => {
+    e.preventDefault();
 
-    render() {
-      return (
+    productGroupData.updateProductGroup(this.groups.id, this.state)
+      .then(() => {
+        this.props.onSubmit();
+      });
+    this.props.toggle();
+  }
+
+  render() {
+    const renderProductGroups = () => this.state.groups.map((groups) => <tr key={groups.id}>
+      <td>{groups.name}</td>
+      <td>{groups.category}</td>
+      <td>{groups.dateCreated}</td>
+      <td><AppModal
+      title={'Update Product Group'}
+      groups={groups}
+      dbUser={this.props.dbUser}
+      handleUpdate={() => this.getProductGroups()}
+      >
+        <AddProductGroupForm handleUpdate={() => this.getProductGroups()} products={groups} id={groups.id} dbUser={this.props.dbUser} callback={(group) => console.log(group)}/>
+      </AppModal></td>
+  </tr>);
+    return (
         <>
         <h2>Product Group Table</h2>
         <Table className="product-groups-fixed-header" striped boardered hover size="sm">
@@ -44,13 +56,14 @@ export default class ProductGroupTable extends Component {
                     <th>Product Name</th>
                     <th>Product Category</th>
                     <th>Date Created</th>
+                    <th>Update Product Group</th>
                 </tr>
             </thead>
               <tbody className="product-groups-table-body">
-                  {this.renderProductGroups()}
+                  {renderProductGroups()}
               </tbody>
         </Table>
         </>
-      );
-    }
+    );
+  }
 }

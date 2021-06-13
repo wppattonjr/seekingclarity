@@ -25,5 +25,16 @@ namespace SeekingClarity.DataAccess
 
             return db.Query<Item>(sql).ToList();
         }
+
+        public IEnumerable<Item> GetAllGroupItems(int groupId)
+        {
+            var sql = @"select * from [Item]
+		                    where GroupId = @GroupId";
+                       
+            using var db = new SqlConnection(ConnectionString);
+
+            return db.Query<Item>(sql, new { groupId }).ToList();
+        }
+
     }
 }

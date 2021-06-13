@@ -33,10 +33,12 @@ export default class ProductGroups extends React.Component {
                     </Col>
                     <Col xs={10} id="page-content-wrapper">
                     <AppModal
-                  title={'Add a Product Group'}>
+                  title={'Add a Product Group'}
+                  dbUser={this.props.dbUser}
+                  userId={this.props.user.uid}>
         <ProductForm handleUpdate={() => this.getProductGroups()} dbUser={this.props.dbUser} />
         </AppModal>
-        <ProductGroupTable userId={this.props.user.uid} />
+        <ProductGroupTable userId={this.props.user.uid} dbUser={this.props.dbUser} products={this.state.products} />
          </Col>
           </Row>
         </Container>

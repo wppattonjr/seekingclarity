@@ -29,9 +29,8 @@ class VerticalNavbar extends Component {
               />
           <div>{user?.displayName}</div>
           <ul className='nav-links'>
-          <li><Link to='/dashboard'><i className=""></i>Dashboard</Link></li>
           <li><Link to='/product-groups'><i className=""></i>Product Groups</Link></li>
-          <li><Link to='/user-profile'><i className=""></i>User Profile</Link></li>
+          <li><Link to='/product-group-items'><i className=""></i>All Group Items</Link></li>
          </ul>
          <div className='nav-link sign-out' onClick={(e) => this.logoutClickEvent(e)}>Sign Out</div>
          </>

@@ -55,5 +55,13 @@ namespace SeekingClarity.Controllers
 
             return Ok(group);
         }
+
+        [HttpPut("{id}/disable")]
+        public IActionResult DisableGroup(int id)
+        {
+            _repo.Disable(id);
+
+            return NoContent();
+        }
     }
 }

@@ -41,27 +41,29 @@ export default class AddProductGroupForm extends React.Component {
     handleSubmit = (e) => {
       e.preventDefault();
 
+      const group = {
+        userid: this.props.dbUser.id,
+        id: this.props.id,
+        name: this.state.name,
+        category: this.state.category,
+        isActive: this.state.isActive === 'true' && true,
+        image: this.state.image
+      };
       if (!this.props.products) {
-        const addGroup = {
-          userid: this.props.dbUser.id,
-          name: this.state.name,
-          category: this.state.category,
-          isActive: this.state.isActive === 'true' && true,
-          image: this.state.image
-        };
-        productGroupData.createProductGroup(addGroup).then(() => {
+        productGroupData.createProductGroup(group).then(() => {
           this.props.handleUpdate();
         });
       } else {
-        const updateGroup = {
-          userid: this.props.dbUser.id,
-          name: this.state.name,
-          category: this.state.category,
-          isActive: this.state.isActive === 'true' && true,
-          image: this.state.image
-        };
-        productGroupData.updateProductGroup(this.props.userId, updateGroup);
+        productGroupData.updateProductGroup(this.props.id, group).then(() => {
+          this.props.handleupdate();
+        });
       }
+
+      if (this.props.callback) {
+        this.props.callback(group);
+        productGroupData.getAllProductGroups();
+      }
+
       this.props.toggle();
     }
 
