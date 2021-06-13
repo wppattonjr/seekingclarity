@@ -1,0 +1,33 @@
+.card-container {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 0 0 5%;
+    flex: 6;
+    padding-left: 35ex;
+}
+
+.item-card {
+    width: 30%;
+    margin: 1%;
+    display: flex;
+    text-align: left;
+    font-family: 'Itim', cursive;
+}
+
+.item-card {
+    border: none;
+}
+
+.item-card-img {
+    width: 20vw;
+    height: 15vw;
+    object-fit: cover;
+}
+
+.item-card-body {
+    padding: 5% 0 0 0;
+}
+
+.item-name {
+    font-size: 1em;
+}

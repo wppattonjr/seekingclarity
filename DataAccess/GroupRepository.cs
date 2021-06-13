@@ -64,9 +64,19 @@ namespace SeekingClarity.DataAccess
                             [Category] = @Category,
                             [IsActive] = @IsActive,
                             [Image] = @Image
-                        WHERE Id = @id";
+                        WHERE Id = @Id";
 
             db.Execute(sql, group);
+        }
+        public void Disable(int id)
+        {
+            using var db = new SqlConnection(ConnectionString);
+
+            var sql = @"Update [Group]
+                        set IsActive = 0
+                        where Id = @id";
+
+            db.Execute(sql, new { id });
         }
 
       

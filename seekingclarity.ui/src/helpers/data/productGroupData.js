@@ -14,12 +14,15 @@ const getAllUserProducts = (userId) => new Promise((resolve, reject) => axios.ge
 
 const createProductGroup = (userId) => axios.post(`${productGroupUrl}`, userId);
 
-const updateProductGroup = (productGroupId) => new Promise((_resolve, reject) => axios.put(`${productGroupUrl}/${productGroupId}`)
+const updateProductGroup = (productGroupId, group) => new Promise((_resolve, reject) => axios.put(`${productGroupUrl}/${productGroupId}`, group)
   .catch((error) => reject(error)));
+
+const deleteGroup = (groupId) => axios.delete(`${productGroupUrl}/${groupId}/disable`);
 
 export default {
   getAllProductGroups,
   getAllUserProducts,
   createProductGroup,
-  updateProductGroup
+  updateProductGroup,
+  deleteGroup,
 };

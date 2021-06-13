@@ -4,9 +4,10 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import GroupDetails from '../views/GroupDetails';
 import Dashboard from '../views/Dashboard';
 import ProductGroups from '../views/ProductGroups';
-import SingleProduct from '../views/SingleProduct';
+import SingleGroup from '../views/SingleGroup';
 import NotFound from '../views/NotFound';
 import LoginPage from '../components/Auth';
+import ProductGroupItems from '../views/ProductGroupItems';
 
 const PrivateRoute = ({
   component: Component, user, dbUser, ...rest
@@ -49,8 +50,15 @@ export default function Routes({ user, dbUser }) {
        dbUser={dbUser}
       />
       <PrivateRoute
-      exact path='/single-product'
-      component={SingleProduct}
+      exact path='/product-group-items'
+      component={ProductGroupItems}
+       user={user}
+       uid={user.uid}
+       dbUser={dbUser}
+      />
+      <PrivateRoute
+      exact path='/single-group'
+      component={SingleGroup}
       user={user}
       uid={user.uid}
       dbUser={dbUser}

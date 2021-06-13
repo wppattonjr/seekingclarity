@@ -28,5 +28,18 @@ namespace SeekingClarity.Controllers
             return Ok(items);
         }
 
+        [HttpGet("all/{groupId}")]
+        public IActionResult GetAllGroupItems(int groupId)
+        {
+            var items = _repo.GetAllGroupItems(groupId);
+
+            if (items == null)
+            {
+                return NotFound("This product group has no items yet");
+            }
+
+            return Ok(items);
+        }
+
     }
 }
