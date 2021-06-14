@@ -41,5 +41,21 @@ namespace SeekingClarity.Controllers
             return Ok(items);
         }
 
+        [HttpPost]
+        public IActionResult AddItem(Item item)
+        {
+            _repo.Add(item);
+
+            return Created($"api/Items/{item.Id}", item);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateGroupItem(Item item)
+        {
+            _repo.Update(item);
+
+            return Ok(item);
+        }
+
     }
 }
