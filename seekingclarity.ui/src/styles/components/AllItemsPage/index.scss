@@ -1,13 +1,13 @@
 .card-container {
     display: flex;
     flex-flow: row wrap;
-    margin: 0 0 0 5%;
+    margin: 10%;
     flex: 6;
     padding-left: 35ex;
 }
 
 .item-card {
-    width: 30%;
+    width: 45%;
     margin: 1%;
     display: flex;
     text-align: left;
@@ -19,7 +19,7 @@
 }
 
 .item-card-img {
-    width: 20vw;
+    width: 5vw;
     height: 15vw;
     object-fit: cover;
 }
@@ -29,5 +29,5 @@
 }
 
 .item-name {
-    font-size: 1em;
+    font-size: 2em;
 }

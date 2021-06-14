@@ -28,6 +28,18 @@ namespace SeekingClarity.DataAccess
             return db.Query<Group>(sql).ToList();
         }
 
+        public IEnumerable<Group> GetAllGroupIds()
+        {
+            using var db = new SqlConnection(ConnectionString);
+
+            var sql = @"select 
+                        [Group].Id as GroupId,
+                        [Group].Name as GroupName
+                      from [Group]";
+
+            return db.Query<Group>(sql).ToList();
+        }
+
         public IEnumerable<Group> GetAllUserProducts(string userId)
         {
             var sql = @"select * from [Group] 
@@ -41,6 +53,18 @@ namespace SeekingClarity.DataAccess
             return db.Query<Group>(sql, new { userId }).ToList();
         }
 
+        public IEnumerable<Group> Get(int groupid)
+        {
+            using var db = new SqlConnection(ConnectionString);
+
+            var sql = @"select *
+                          from [Group]
+                          where [Group].Id = @groupid";
+
+            var group = db.Query<Group>(sql, new { groupid });
+
+            return group;
+        }
         public void Add(Group group)
         {
             var sql = @"INSERT INTO [Group] ([UserId], [Name], [Category], [isActive], [Image])

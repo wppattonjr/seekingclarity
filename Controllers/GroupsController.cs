@@ -27,6 +27,14 @@ namespace SeekingClarity.Controllers
             return Ok(Groups);
         }
 
+        [HttpGet("groupids")]
+        public IActionResult GetAllGroupIds()
+        {
+            var GroupIds = _repo.GetAllGroupIds();
+
+            return Ok(GroupIds);
+        }
+
         [HttpGet("all/{userId}")]
         public IActionResult GetAllUserProducts(string userId)
         {
@@ -38,6 +46,19 @@ namespace SeekingClarity.Controllers
             }
 
             return Ok(products);
+        }
+
+        [HttpGet("{groupId}")]
+        public IActionResult GetById(int groupId)
+        {
+            var group = _repo.Get(groupId);
+
+            if (group == null)
+            {
+                return NotFound("This group id does not exist");
+            }
+
+            return Ok(group);
         }
 
         [HttpPost]

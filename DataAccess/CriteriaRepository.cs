@@ -25,5 +25,21 @@ namespace SeekingClarity.DataAccess
 
             return db.Query<Criteria>(sql).ToList();
         }
+
+        public IEnumerable<Criteria> Get(int itemId)
+        {
+            var sql = @"select
+                        [Criteria].Id as CriteriaId,
+                        [Criteria].[Name] as CriteriaName, 
+                        [Criteria].GroupId as GroupId,
+                        join ItemCriteria
+                        on [ItemCriteria].CriteriaId = [Criteria].Id
+                        where [ItemCriteria].CriteriaId = @ItemId";
+
+
+            using var db = new SqlConnection(ConnectionString);
+
+            return db.Query<Criteria>(sql, new { itemId }).ToList();
+        }
     }
 }
