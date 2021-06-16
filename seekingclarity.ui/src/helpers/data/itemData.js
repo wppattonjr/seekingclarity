@@ -12,6 +12,10 @@ const getAllGroupItems = (groupId) => new Promise((resolve, reject) => axios.get
   .then((response) => { resolve(response.data); })
   .catch((error) => reject(error)));
 
+const getASingleItem = (itemId) => new Promise((resolve, reject) => axios.get(`${groupItemsUrl}/single/${itemId}`)
+  .then((response) => { resolve(response.data); })
+  .catch((error) => reject(error)));
+
 const createGroupItem = (item) => axios.post(`${groupItemsUrl}`, item);
 
 const updateProductItem = (productItemId, item) => new Promise((_resolve, reject) => axios.put(`${groupItemsUrl}/${productItemId}`, item)
@@ -21,5 +25,6 @@ export default {
   getAllGroupItems,
   getAllItems,
   createGroupItem,
-  updateProductItem
+  updateProductItem,
+  getASingleItem
 };

@@ -5,26 +5,30 @@ import ItemCard from '../components/ItemCard';
 
 export default class GroupDetails extends Component {
   state = {
-    items: []
-  }
+    items: [],
+  };
 
   componentDidMount() {
-    this.getGroupItems();
+    const groupId = this.props.match.params.id;
+    this.getASingleGroup(groupId);
   }
 
-  getGroupItems = () => {
-    const { groupId } = this.props;
-    itemData.getGroupItems(groupId).then((response) => this.setState({
-      items: response
-    }));
-  }
+  getASingleGroup = (groupId) => {
+    itemData.getAllGroupItems(groupId).then((response) => {
+      this.setState({
+        items: response,
+      });
+    });
+  };
 
   render() {
     return (
-       <div className='d-flex justify-content-center m5'>
-        <h1>Group Details View</h1>
-        <div className="item-cards-container">
-          <ItemCard item={this.state.items} key={this.state.items.id} />
+      <div className="all-items-page">
+        <h1 className="all-group-items">All Group Items</h1>
+        <div className="all-items-body">
+          <div className="all-items-container">
+            {this.state.items.map((item) => <ItemCard key={item.id} item={item} />)}
+          </div>
         </div>
       </div>
     );

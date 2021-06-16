@@ -20,24 +20,32 @@ namespace SeekingClarity.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllCriteria()
+        public IActionResult GetAllItemCriteria()
         {
-            var criteria = _repo.GetAll();
+            var criteria = _repo.GetAllItemCriteria();
 
             return Ok(criteria);
         }
 
-        [HttpGet("{criteriaId}")]
-        public IActionResult GetById(int criteriaId)
+     
+        [HttpGet("score/{itemid}")]
+        public IActionResult GetItemCriteria(int itemId)
         {
-            var criteria = _repo.Get(criteriaId);
+            var criteria = _repo.GetItemCriteria(itemId);
 
             if (criteria == null)
             {
-                return NotFound("This user item does not exist");
+                return NotFound("Criteria for this item does not exist");
             }
 
             return Ok(criteria);
         }
+        public IActionResult AddProductGroup(Criteria criteria)
+        {
+            _repo.Add(criteria);
+
+            return Created($"api/Criteria/{criteria.Id}", criteria);
+        }
+
     }
 }

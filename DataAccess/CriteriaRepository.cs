@@ -26,20 +26,67 @@ namespace SeekingClarity.DataAccess
             return db.Query<Criteria>(sql).ToList();
         }
 
-        public IEnumerable<Criteria> Get(int itemId)
+        public IEnumerable<ItemCriteriaScore> GetItemCriteria(int itemId)
         {
-            var sql = @"select
-                        [Criteria].Id as CriteriaId,
-                        [Criteria].[Name] as CriteriaName, 
-                        [Criteria].GroupId as GroupId,
-                        join ItemCriteria
-                        on [ItemCriteria].CriteriaId = [Criteria].Id
-                        where [ItemCriteria].CriteriaId = @ItemId";
+            var sql = @" SELECT
+	                        Criteria.[Name] as CriteriaName,
+	                        ItemCriteria.Score as CriteriaScore,
+	                        Item.[Name] as ItemName,
+	                        Item.Id as ItemId,
+	                        [Group].Id as GroupId
+                         FROM Criteria
+                         JOIN ItemCriteria
+	                        ON Criteria.Id = ItemCriteria.CriteriaId
+                         JOIN Item
+	                        ON Item.Id = ItemCriteria.ItemId
+                         JOIN [Group]
+	                        ON [Group].Id = Item.GroupId
+                            WHERE Item.Id = @ItemId";
 
 
             using var db = new SqlConnection(ConnectionString);
 
-            return db.Query<Criteria>(sql, new { itemId }).ToList();
+            return db.Query<ItemCriteriaScore>(sql, new { itemId }).ToList();
+        }
+
+        public IEnumerable<ItemCriteriaScore> GetAllItemCriteria()
+        {
+            var sql = @" SELECT
+	                        Criteria.[Name] as CriteriaName,
+	                        ItemCriteria.Score as CriteriaScore,
+	                        Item.[Name] as ItemName,
+	                        Item.Id as ItemId,
+	                        [Group].Id as GroupId
+                         FROM Criteria
+                         JOIN ItemCriteria
+	                        ON Criteria.Id = ItemCriteria.CriteriaId
+                         JOIN Item
+	                        ON Item.Id = ItemCriteria.ItemId
+                         JOIN [Group]
+	                        ON [Group].Id = Item.GroupId";
+
+            using var db = new SqlConnection(ConnectionString);
+
+            return db.Query<ItemCriteriaScore>(sql).ToList();
+
+        }
+        public void Add(Criteria criteria)
+        {
+            var sql = @"INSERT INTO Criteria ([Name], [GroupId], [isActive])
+                        OUTPUT inserted.Id
+                        VALUES(@Name, @GroupId, @isActive)
+
+                        insert into ItemCriteria(CriteriaId,ItemId,IsActive, Score)
+                        select c.id as criteriaid, i.id as itemid, 1 as isactive, 0
+                        from criteria c
+                        join Item i on i.GroupId = c.GroupId
+                        where c.Id = SCOPE_IDENTITY()";
+
+            using var db = new SqlConnection(ConnectionString);
+
+            var id = db.ExecuteScalar<int>(sql, criteria);
+
+            criteria.Id = id;
         }
     }
 }

@@ -17,7 +17,7 @@ class VerticalNavbar extends Component {
       <div className='my-nav'>
         <div className='nav-items'>
           <div className='nav-brand'>
-          <Link to='/dashboard'>Seeking Clarity</Link>
+          <Link to='/product-groups'>Seeking Clarity</Link>
           </div>
           {
             user

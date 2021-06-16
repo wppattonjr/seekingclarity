@@ -41,6 +41,20 @@ namespace SeekingClarity.Controllers
             return Ok(items);
         }
 
+        [HttpGet("single/{itemId}")]
+        public IActionResult GetSingleItem(int itemId)
+        {
+            var item = _repo.GetSingleItem(itemId);
+
+            if (item == null)
+            {
+                return NotFound("No item found.");
+            }
+
+            return Ok(item);
+        }
+
+
         [HttpPost]
         public IActionResult AddItem(Item item)
         {

@@ -5,22 +5,33 @@ import ItemCard from '../components/ItemCard';
 import AppModal from '../components/AppModal';
 import ItemForm from '../components/ItemForm';
 import productGroupData from '../helpers/data/productGroupData';
+import criteriaData from '../helpers/data/criteriaData';
 
 export default class AllGroupItems extends React.Component {
     state = {
       items: [],
-      groups: []
+      groups: [],
+      criteria: []
     }
 
     componentDidMount() {
       this.getAllTheItems();
       this.getAllGroupIds();
+      this.getAllTheCriteria();
     }
 
       getAllTheItems = () => {
         itemData.getAllItems().then((response) => {
           this.setState({
             items: response
+          });
+        });
+      }
+
+      getAllTheCriteria = () => {
+        criteriaData.getAllCriteria().then((response) => {
+          this.setState({
+            criteria: response
           });
         });
       }
