@@ -2,22 +2,11 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import GroupDetails from '../views/GroupDetails';
-import Dashboard from '../views/Dashboard';
 import ProductGroups from '../views/ProductGroups';
-import SingleGroup from '../views/SingleGroup';
 import NotFound from '../views/NotFound';
 import LoginPage from '../components/Auth';
 import ProductGroupItems from '../views/ProductGroupItems';
-
-const PrivateRoute = ({
-  component: Component, user, dbUser, ...rest
-}) => {
-  const routeChecker = (check) => ((user, dbUser)
-    ? (<Component {...check} user={user} dbUser={dbUser} />)
-    : (<Redirect to={{ pathname: '/', state: { from: check.location } }} />));
-
-  return <Route {...rest} render={(props) => routeChecker(props)} />;
-};
+import SingleItemDetails from '../views/SingleItemDetails';
 
 export default function Routes({ user, dbUser }) {
   return (
@@ -28,19 +17,17 @@ export default function Routes({ user, dbUser }) {
       user={user}
       dbUser={dbUser}
       />
-      <PrivateRoute
-      exact path='/dashboard'
-      component={Dashboard}
-      uid={user.uid}
+      <Route
+      exact path='/group-details/:id'
+      component={(props) => <GroupDetails dbUser={dbUser} {...props} />}
       user={user}
-      dbUser={dbUser}
+      uid={user.uid}
       />
-      <PrivateRoute
-      exact path='/group-details'
-      component={GroupDetails}
+       <Route
+      exact path='/single-item-details/:id'
+      component={(props) => <SingleItemDetails dbUser={dbUser} {...props} />}
       user={user}
       uid={user.uid}
-      dbUser={dbUser}
       />
       <PrivateRoute
       exact path='/product-groups'
@@ -56,14 +43,17 @@ export default function Routes({ user, dbUser }) {
        uid={user.uid}
        dbUser={dbUser}
       />
-      <PrivateRoute
-      exact path='/single-group'
-      component={SingleGroup}
-      user={user}
-      uid={user.uid}
-      dbUser={dbUser}
-      />
       <Route component={NotFound} />
     </Switch>
   );
 }
+
+const PrivateRoute = ({
+  component: Component, user, dbUser, ...rest
+}) => {
+  const routeChecker = (check) => ((user, dbUser)
+    ? (<Component {...check} user={user} dbUser={dbUser} />)
+    : (<Redirect to={{ pathname: '/', state: { from: check.location } }} />));
+
+  return <Route {...rest} render={(props) => routeChecker(props)} />;
+};

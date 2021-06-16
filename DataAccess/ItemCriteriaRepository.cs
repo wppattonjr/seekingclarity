@@ -24,6 +24,40 @@ namespace SeekingClarity.DataAccess
 
             return db.Query<ItemCriteria>(sql).ToList();
         }
+
+        public IEnumerable<ItemCriteriaScore> Get(int itemid)
+        {
+            using var db = new SqlConnection(ConnectionString);
+
+            var sql = @"SELECT
+                        Criteria.Id as CriteriaId,
+	                    Criteria.[Name] as CriteriaName,
+	                    ItemCriteria.Score as CriteriaScore,
+	                    Item.[Name] as ItemName,
+	                    Item.Id as ItemId
+	                FROM Criteria
+                    JOIN ItemCriteria
+	                ON Criteria.Id = ItemCriteria.CriteriaId
+                    Join Item
+	                ON [Item].Id = ItemCriteria.ItemId
+                    WHERE [Item].Id = @ItemId";
+
+            var itemcriteria = db.Query<ItemCriteriaScore>(sql, new { itemid });
+
+            return itemcriteria;
+        }
+        public void AddItemCriteria(ItemCriteria itemcriteria)
+        {
+            var sql = @"INSERT INTO ItemCriteria ([CtriteriaId], [Score], [ItemId], [isActive])
+                        OUTPUT inserted.Id
+                        VALUES(@CriteriaId, @Score, @ItemId, @isActive)";
+
+            using var db = new SqlConnection(ConnectionString);
+
+            var id = db.ExecuteScalar<int>(sql, itemcriteria);
+
+            itemcriteria.Id = id;
+        }
     }
 }
 

@@ -27,6 +27,19 @@ namespace SeekingClarity.Controllers
             return Ok(itemCriteria);
         }
 
-    }
+        [HttpGet("{itemId}")]
+        public IActionResult GetById(int itemId)
+        {
+            var item = _repo.Get(itemId);
+
+            if (item == null)
+            {
+                return NotFound("This item id does not exist");
+            }
+
+            return Ok(item);
+        }
+
+     }
 }
 

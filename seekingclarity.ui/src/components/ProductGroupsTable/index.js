@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import AddProductGroupForm from '../ProductForm';
 import AppModal from '../AppModal';
 import productGroupData from '../../helpers/data/productGroupData';
@@ -35,7 +36,7 @@ export default class ProductGroupTable extends Component {
 
   render() {
     const renderProductGroups = () => this.state.groups.map((groups) => <tr key={groups.id}>
-      <td>{groups.name}</td>
+      <td><Link to={`/group-details/${groups.id}`}>{groups.name}</Link></td>
       <td>{groups.category}</td>
       <td>{groups.dateCreated}</td>
       <td><AppModal
