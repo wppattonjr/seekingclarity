@@ -4,12 +4,15 @@ import { Table } from 'react-bootstrap';
 import ItemCard from '../components/ItemCard';
 import itemCriteriaData from '../helpers/data/itemCriteriaData';
 import itemData from '../helpers/data/itemData';
-// import AppModal from '../components/AppModal';
+import AppModal from '../components/AppModal';
+import UpdateCriteriaForm from '../components/UpdateCriteriaForm';
 
-export default class SingleItemDtails extends Component {
+export default class SingleItemDetails extends Component {
   state = {
     item: {},
-    criteria: []
+    criteria: [],
+    name: this.props.item?.name || '',
+    groupid: this.props.item?.groupid || '',
   };
 
   componentDidMount() {
@@ -40,6 +43,15 @@ export default class SingleItemDtails extends Component {
     const renderCriteriaDetails = () => criteria.map((cs) => <tr key={cs.criteriaId}>
         <td>{cs.criteriaName}</td>
         <td>{cs.criteriaScore}</td>
+        <td>
+            <AppModal
+                title={'Update Criteria'}
+                groupId={this.props.groupId}
+                dbUser={this.props.dbUser}
+                userId={this.props.uid}>
+                   <UpdateCriteriaForm handleUpdate={() => this.getItemCriteria()} criteria={this.props.criteria} criteriaid={this.props.id} callback={(thisCriteria) => console.log(thisCriteria)}/>
+            </AppModal>
+        </td>
     </tr>);
 
     return (
@@ -49,17 +61,20 @@ export default class SingleItemDtails extends Component {
           <div className="all-items-container">
             <ItemCard key={item.id} item={item} />
           </div>
-          <Table striped bordered hover size="sm">
+          <div className="single-item-criteria-table">
+          <Table className="single-item-criteria-fixed-header"si striped boardered hover size="sm">
              <thead>
                  <tr>
                      <th>Name</th>
                      <th>Score</th>
+                     <th>Update Criteria</th>
                  </tr>
              </thead>
-             <tbody>
+             <tbody className="single-item-criteria-table-body">
                  {renderCriteriaDetails()}
              </tbody>
          </Table>
+         </div>
         </div>
       </div>
     );

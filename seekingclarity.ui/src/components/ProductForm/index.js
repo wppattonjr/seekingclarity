@@ -10,7 +10,7 @@ export default class AddProductGroupForm extends React.Component {
       name: this.props.products?.name || '',
       category: this.props.products?.category || '',
       isActive: this.props.products?.isActive || '',
-      image: this.props.products?.image || '',
+      groupReview: this.props.products?.groupReview || '',
     }
 
     handleChange = (e) => {
@@ -47,7 +47,7 @@ export default class AddProductGroupForm extends React.Component {
         name: this.state.name,
         category: this.state.category,
         isActive: this.state.isActive === 'true' && true,
-        image: this.state.image
+        groupReview: this.state.groupReview
       };
       if (!this.props.products) {
         productGroupData.createProductGroup(group).then(() => {
@@ -90,6 +90,10 @@ export default class AddProductGroupForm extends React.Component {
                     <option value="true">Yes</option>
                     <option value="false">No</option>
                 </Form.Control>
+            </Form.Group>
+            <Form.Group controlId="groupReview">
+              <Form.Label>Group Review</Form.Label>
+              <Form.Control as="textarea" onChange={this.handleChange} value={this.state.groupReview} />
             </Form.Group>
                 <Button variant="primary" type="submit">
                     Submit

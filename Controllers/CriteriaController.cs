@@ -19,6 +19,14 @@ namespace SeekingClarity.Controllers
             _repo = repo;
         }
 
+        [HttpGet("all")]
+        public IActionResult GetAll()
+        {
+            var criteria = _repo.GetAll();
+
+            return Ok(criteria);
+        }
+
         [HttpGet]
         public IActionResult GetAllItemCriteria()
         {
@@ -45,6 +53,14 @@ namespace SeekingClarity.Controllers
             _repo.Add(criteria);
 
             return Created($"api/Criteria/{criteria.Id}", criteria);
+        }
+
+        [HttpPut("{criteriaid}")]
+        public IActionResult UpdateCriteria(Criteria criteria)
+        {
+            _repo.UpdateCriteria(criteria);
+
+            return Ok(criteria);
         }
 
     }

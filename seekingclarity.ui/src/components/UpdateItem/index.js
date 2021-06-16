@@ -84,7 +84,7 @@ export default class UpdateItemForm extends React.Component {
               <Form.Group controlId="groupid">
                   <Form.Label>Choose Group</Form.Label>
                   <Form.Control as="select" type="number" onChange={this.handleChange} value={this.state.groupId} required>
-                      <option value="" defaultValue disabled hidden>Select availability</option>
+                      <option value="" defaultValue disabled hidden>Select Product Group</option>
                       <option value="1">SUV</option>
                       <option value="2">Television</option>
                       <option value="3">Day Care</option>
