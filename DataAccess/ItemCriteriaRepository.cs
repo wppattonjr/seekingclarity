@@ -58,6 +58,17 @@ namespace SeekingClarity.DataAccess
 
             itemcriteria.Id = id;
         }
+
+        public void UpdateScore(ItemCriteria itemcriteria)
+        {
+            using var db = new SqlConnection(ConnectionString);
+
+            var sql = @"UPDATE [ItemCriteria]
+                        SET [Score] = @Score
+                        WHERE Id = @Id";
+
+            db.Execute(sql, itemcriteria);
+        }
     }
 }
 

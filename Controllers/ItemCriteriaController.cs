@@ -40,6 +40,14 @@ namespace SeekingClarity.Controllers
             return Ok(item);
         }
 
-     }
+        [HttpPatch("{id}")]
+        public IActionResult UpdateScore(ItemCriteria itemcriteria)
+        {
+            _repo.UpdateScore(itemcriteria);
+
+            return Ok(itemcriteria);
+        }
+
+    }
 }
 

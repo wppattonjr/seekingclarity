@@ -67,9 +67,9 @@ namespace SeekingClarity.DataAccess
         }
         public void Add(Group group)
         {
-            var sql = @"INSERT INTO [Group] ([UserId], [Name], [Category], [isActive], [Image])
+            var sql = @"INSERT INTO [Group] ([UserId], [Name], [Category], [isActive], [GroupReview])
                         OUTPUT inserted.Id
-                        VALUES(@UserId, @Name, @Category, @isActive, @Image)";
+                        VALUES(@UserId, @Name, @Category, @isActive, @GroupReview)";
 
             using var db = new SqlConnection(ConnectionString);
 
@@ -87,7 +87,7 @@ namespace SeekingClarity.DataAccess
                             [Name] = @Name,
                             [Category] = @Category,
                             [IsActive] = @IsActive,
-                            [Image] = @Image
+                            [GroupReview] = @GroupReview
                         WHERE Id = @Id";
 
             db.Execute(sql, group);

@@ -37,6 +37,7 @@ export default class ProductGroupTable extends Component {
   render() {
     const renderProductGroups = () => this.state.groups.map((groups) => <tr key={groups.id}>
       <td><Link to={`/group-details/${groups.id}`}>{groups.name}</Link></td>
+      <td>{groups.groupReview}</td>
       <td>{groups.category}</td>
       <td>{groups.dateCreated}</td>
       <td><AppModal
@@ -55,6 +56,7 @@ export default class ProductGroupTable extends Component {
             <thead className="product-groups-table">
                 <tr>
                     <th>Product Name</th>
+                    <th>Group Review</th>
                     <th>Product Category</th>
                     <th>Date Created</th>
                     <th>Update Product Group</th>

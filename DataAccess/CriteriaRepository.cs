@@ -74,7 +74,7 @@ namespace SeekingClarity.DataAccess
         {
             var sql = @"INSERT INTO Criteria ([Name], [GroupId], [isActive])
                         OUTPUT inserted.Id
-                        VALUES(@Name, @GroupId, @isActive)
+                        VALUES(@Name, @GroupId, 1)
 
                         insert into ItemCriteria(CriteriaId,ItemId,IsActive, Score)
                         select c.id as criteriaid, i.id as itemid, 1 as isactive, 0
@@ -87,6 +87,18 @@ namespace SeekingClarity.DataAccess
             var id = db.ExecuteScalar<int>(sql, criteria);
 
             criteria.Id = id;
+        }
+
+        public void UpdateCriteria(Criteria criteria)
+        {
+            using var db = new SqlConnection(ConnectionString);
+
+            var sql = @"UPDATE [Criteria]
+                        SET [Name] = @Name,
+                            [GroupId] = @GroupId,
+                        WHERE Id = @Id";
+
+            db.Execute(sql, criteria);
         }
     }
 }

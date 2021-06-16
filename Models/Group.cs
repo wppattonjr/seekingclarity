@@ -15,6 +15,7 @@ namespace SeekingClarity.Models
         public int UserId { get; set; }
         public bool IsActive { get; set; }
         public string Image { get; set; }
+        public string GroupReview { get; set; }
 
     }
 }
